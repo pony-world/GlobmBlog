@@ -1,0 +1,36 @@
+
+$max-width: 1200px;
+$primary-color: #2f54eb;
+
+/*多行省略*/
+@mixin multi-line-ellipsis($lineLimit, $lineHeight: 1, $fixedHeight: false) {
+  line-height: $lineHeight;
+  @if ($fixedHeight) {
+    height: $lineLimit * $lineHeight * 1em;
+  } @else {
+    max-height: $lineLimit * $lineHeight * 1em;
+  }
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $lineLimit;
+  -webkit-box-orient: vertical;
+}
+
+/*单行省略*/
+@mixin single-line-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+// 清除浮动
+@mixin clear-box{
+  &::after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
