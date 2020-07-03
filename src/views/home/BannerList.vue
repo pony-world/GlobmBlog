@@ -120,11 +120,11 @@
           Globm Blog 旨在锻炼自己的能力,向全栈进军！并将遇到的一些问题进行整理,还添加了一些实用的小工具
         </p>
         <div class="btn-wrapper">
-          <span>实用工具</span>
-          <span>博客 Blog</span>
+          <router-link to="/tool">实用工具</router-link>
+          <router-link to="/blog">博客 Blog</router-link>
         </div>
         <div class="gitBtn-wrapper">
-          <a href="javascript:void(0)" target="_blank">
+          <a href="https://github.com/pony-world/GlobmBlog" target="_blank">
             <img src="../../assets/img/ico/github.png" alt="">
             <span>Star</span>
           </a>
@@ -181,7 +181,8 @@ export default {
 <style lang="scss" scoped>
   .banner {
     height: 682px - 64px;
-    background: #2f54eb;
+    //height: calc(100vh - 64px);
+    background: $primary-color;
     color: #fff;
     position: relative;
     .banner-box {
@@ -386,7 +387,7 @@ export default {
           margin: 80px auto 64px;
         }
         .btn-wrapper{
-          span{
+          a{
             min-width: 136px;
             height: 40px;
             line-height: 40px;
@@ -406,18 +407,18 @@ export default {
             border: 1px solid #fff;
             &:hover{
               transform: translateY(-4px);
-              box-shadow: 0 4px 12px rgba(16,45,164,.55);
+              box-shadow: $primary-hover-color;
             }
             &:first-child{
               background: #fff;
-              color: #2f54eb;
+              color: $primary-color;
             }
             &:last-child{
               color: #fff;
               margin-left: 24px;
               &:hover{
                 background: #fff;
-                color: #2f54eb;
+                color: $primary-color;
               }
             }
           }
@@ -432,7 +433,7 @@ export default {
             border-radius: 3px;
             &:hover{
               background-color: #ddd;
-              color: #597ef7;
+              color: $primary-hover-color;
             }
             img{
               width: 14px;

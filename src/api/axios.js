@@ -1,11 +1,13 @@
 // axios配置文件
 import axios from 'axios'
+import store from '@/store'
 
 axios.defaults.timeout = 6000
 
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
+    config.headers.authorization = 'Bearer ' + store.getters.token
     return Promise.resolve(config)
   },
   error => {
@@ -17,13 +19,20 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   async res => {
     if (res.data.code === 0) {
-      return Promise.resolve(res.data.data)
+      return Promise.resolve(res.data.data || {})
     } else {
-      return Promise.reject(res.data)
+      switch (res.data.code) {
+        case 1001:
+          store.dispatch('REMOVE_TOKEN')
+          break
+        default:
+          return Promise.reject(res.data)
+      }
     }
   },
   async err => {
-    return Promise.reject(err.response || { msg: '网络错误' })
+    const error = err.response ? err.response.msg ? err.response : { msg: '网络错误' } : { msg: '网络错误' }
+    return Promise.reject(error)
   }
 )
 

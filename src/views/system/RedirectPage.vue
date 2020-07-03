@@ -1,6 +1,7 @@
 <script>
 export default {
   beforeCreate () {
+    document.title = 'register' + '_Globm Blog'
     const { params, query } = this.$route
     let { path } = params
     path = path ? '/' + path : '/'

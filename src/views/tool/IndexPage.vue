@@ -9,6 +9,7 @@ export default {
     return {}
   },
   created () {
+    document.title = '工具' + '_Globm Blog'
   },
   methods: {}
 }

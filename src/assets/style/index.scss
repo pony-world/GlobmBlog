@@ -1,5 +1,7 @@
 
-@import './iconfont.css';
+@import 'iconfont.css';
+@import "loading.css";
+@import "element";
 
 //全局css
 *, *:before, *:after{
@@ -7,9 +9,6 @@
   padding: 0;
   box-sizing: border-box;
   outline: none;
-}
-ul{
-  list-style: none;
 }
 a{
   text-decoration: none;

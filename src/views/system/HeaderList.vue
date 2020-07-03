@@ -11,19 +11,26 @@
         <div class="menu">
           <ul class="nav">
             <li>
-              <router-link to="/" active-class="active" exact>首页</router-link>
+              <router-link to="/index" active-class="active" exact>首页</router-link>
             </li>
-            <li>
-              <router-link to="/tool" active-class="active">工具</router-link>
-            </li>
+<!--            <li>-->
+<!--              <router-link to="/tool" active-class="active">工具</router-link>-->
+<!--            </li>-->
             <li>
               <router-link to="/blog" active-class="active">博客</router-link>
             </li>
-            <li>
-              <router-link to="/ui" active-class="active">组件</router-link>
-            </li>
+<!--            <li>-->
+<!--              <router-link to="/ui" active-class="active">组件</router-link>-->
+<!--            </li>-->
           </ul>
-          <span class="btn">Github</span>
+          <a href="https://github.com/pony-world/GlobmBlog" target="_blank" class="btn">
+            Github
+          </a>
+          <router-link v-if="!token" to="/login" class="btn">Sign In</router-link>
+          <div v-else class="user-avatar">
+            <img :src="userIntro.avatar || require('@/assets/img/user-avatar.jpg')" alt="" @error="handleError">
+            <HeaderAside :intro="userIntro"/>
+          </div>
         </div>
       </div>
     </div>
@@ -31,28 +38,67 @@
 </template>
 
 <script>
+import { apiGetUserIntro } from '@/api/http_url'
+import HeaderAside from '@/views/system/HeaderAside'
+
 export default {
   name: 'HeaderList',
   data () {
-    return {}
+    return {
+      token: '',
+      userIntro: {}
+    }
   },
-  created () {
+  watch: {
+    '$store.getters.token': {
+      handler (newVal) {
+        this.token = newVal
+        if (newVal) {
+          this.getUserIntro()
+        }
+      },
+      immediate: true
+    },
+    '$store.state.userIntro': {
+      handler (newVal) {
+        if (newVal && newVal.constructor === Object) {
+          this.userIntro = newVal
+        }
+      },
+      immediate: true,
+      deep: true
+    }
   },
-  methods: {}
+  methods: {
+    getUserIntro () {
+      apiGetUserIntro().then(res => {
+        this.$store.dispatch('SET_USER_INTRO', res)
+      })
+    },
+    handleError (e) {
+      e.target.src = require('@/assets/img/user-avatar.jpg')
+    }
+  },
+  components: {
+    HeaderAside
+  }
 }
 </script>
 
 <style lang="scss" scoped>
   header{
-    overflow: hidden;
     height: 64px;
     line-height: 64px;
-    background: #2f54eb;
+    background: $primary-color;
     /*box-shadow: 0 4px 12px rgba(138,166,195,.45);*/
     transition: box-shadow .45s cubic-bezier(.215,.61,.355,1);
+    ul{
+      list-style: none;
+    }
     .header-box{
       padding: 0 24px;
       max-width: 1200px;
+      height: 64px;
       margin: 0 auto;
       transition: padding .45s cubic-bezier(.215,.61,.355,1),max-width .45s cubic-bezier(.215,.61,.355,1);
       .logo{
@@ -63,7 +109,7 @@ export default {
           img{
             width: 28px;
             height: 28px;
-            margin: 15px 8px 0 0;
+            margin: 18px 8px 0 0;
             display: block;
             float: left;
           }
@@ -76,7 +122,7 @@ export default {
         float: right;
         .menu{
           color: #fff;
-          overflow: hidden;
+          @include clear-box;
           .nav{
             float: left;
             overflow: hidden;
@@ -111,6 +157,24 @@ export default {
             margin-top: 16px;
             cursor: pointer;
             box-sizing: content-box;
+          }
+          .user-avatar{
+            float: left;
+            margin-left: 20px;
+            padding: 12.5px 0;
+            cursor: pointer;
+            position: relative;
+            &:hover{
+              /deep/.user-control{
+                display: block;
+              }
+            }
+            >img{
+              border-radius: 50%;
+              width: 39px;
+              height: 39px;
+              display: block;
+            }
           }
         }
       }

@@ -1,15 +1,10 @@
 
 $max-width: 1200px;
 $primary-color: #2f54eb;
+$primary-hover-color: rgba(47, 84, 235, 0.8);
 
 /*多行省略*/
-@mixin multi-line-ellipsis($lineLimit, $lineHeight: 1, $fixedHeight: false) {
-  line-height: $lineHeight;
-  @if ($fixedHeight) {
-    height: $lineLimit * $lineHeight * 1em;
-  } @else {
-    max-height: $lineLimit * $lineHeight * 1em;
-  }
+@mixin multi-line-ellipsis($lineLimit) {
   display: -webkit-box;
   overflow: hidden;
   word-break: break-all;
@@ -23,7 +18,6 @@ $primary-color: #2f54eb;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  line-height: 1.2;
 }
 
 // 清除浮动

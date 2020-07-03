@@ -2,7 +2,7 @@
   <div class="TraitList">
     <div class="summary">
       <div class="summary-box">
-        <h2>三大特征</h2>
+        <h2>三大功能</h2>
         <div class="content" ref="summary" :class="summaryShow ? 'show' : ''">
           <div class="column">
             <div class="column-box">
@@ -15,9 +15,9 @@
                 <i></i>
                 <i></i>
               </div>
-              <div class="ico-box">
+              <router-link tag="div" to="/tool" class="ico-box">
                 <img src="../../assets/img/ico/tool-ico.png" alt="">
-              </div>
+              </router-link>
             </div>
             <span>实用工具</span>
           </div>
@@ -32,9 +32,9 @@
                 <i></i>
                 <i></i>
               </div>
-              <div class="ico-box">
+              <router-link tag="div" to="/blog" class="ico-box">
                 <img src="../../assets/img/ico/blog-ico.png" alt="">
-              </div>
+              </router-link>
             </div>
             <span>博客 Blog</span>
           </div>
@@ -49,9 +49,9 @@
                 <i></i>
                 <i></i>
               </div>
-              <div class="ico-box">
+              <router-link tag="div" to="/ui" class="ico-box">
                 <img src="../../assets/img/ico/ui-ico.png" alt="">
-              </div>
+              </router-link>
             </div>
             <span>UI 组件</span>
           </div>
@@ -114,7 +114,7 @@ export default {
         max-width: 1200px;
         margin: 0 auto;
         text-align: center;
-        padding: 128px 24px;
+        padding: 80px 24px;
         h2{
           font-size: 26px;
           letter-spacing: 2px;

@@ -1,0 +1,32 @@
+import Cookies from 'js-cookie'
+
+const TokenKey = 'Authorization-token-Globm-Blog'
+// 设置setLocalStorage
+export function setLocalStorage (key, value) {
+  window.localStorage.setItem(key, window.JSON.stringify(value))
+}
+// 获取getLocalStorage
+export function getLocalStorage (key) {
+  return window.JSON.parse(window.localStorage.getItem(key) || null)
+}
+// 设置setSessionStorage
+export function setSessionStorage (key, value) {
+  window.sessionStorage.setItem(key, window.JSON.stringify(value))
+}
+// 获取getSessionStorage
+export function getSessionStorage (key) {
+  return window.JSON.parse(window.sessionStorage.getItem(key) || null)
+}
+// 获取getToken
+export function getToken () {
+  return Cookies.get(TokenKey)
+}
+// 设置setToken
+export function setToken (token, day) {
+  return Cookies.set(TokenKey, token, { expires: day })
+  // return Cookies.set(TokenKey, token, { expires: (new Date(day)).getTime() / 1000 })
+}
+// 移除removeToken
+export function removeToken () {
+  return Cookies.remove(TokenKey)
+}

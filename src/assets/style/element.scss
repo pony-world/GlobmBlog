@@ -1,0 +1,65 @@
+
+// dialog
+.el-dialog{
+  overflow: hidden;
+  border-radius: 10px!important;
+  .el-dialog__header{
+    background: rgba(47, 84, 235, 0.8);
+    .el-dialog__title{
+      font-size: 14px;
+      color: #fff;
+    }
+    .el-dialog__headerbtn{
+      font-weight: bold;
+      top: 22px;
+      .el-dialog__close{
+        color: #fff;
+      }
+    }
+  }
+  .el-dialog__body{
+  }
+}
+// table
+.el-table{
+  .el-table__header-wrapper{
+    th {
+      background: $primary-color;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
+// 页头
+.el-page-header{
+  margin-bottom: 12px;
+  .el-page-header__left{
+    &:hover{
+      color: $primary-color;
+    }
+  }
+  .el-page-header__content{
+    font-size: 14px;
+  }
+}
+// 面包屑
+.el-breadcrumb{
+  line-height: 30px!important;
+  height: 30px!important;
+  margin-bottom: 12px;
+  padding-left: 8px;
+  position: relative;
+  &:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top:8px;
+    width: 3px;
+    height: 14px;
+    background: $primary-color;
+  }
+  .el-breadcrumb__inner.is-link{
+    color: #2c3e50;
+  }
+}

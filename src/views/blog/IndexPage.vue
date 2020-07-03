@@ -14,23 +14,23 @@
           </div>
           <div class="data-info">
             <dl>
-              <dt>{{blogIntro.blogOriginalCount}}</dt>
+              <dt>{{blogSummary.original_count}}</dt>
               <dd>原创</dd>
             </dl>
             <dl>
-              <dt>{{blogIntro.blogReprintCount}}</dt>
+              <dt>{{blogSummary.reprint_count}}</dt>
               <dd>转载</dd>
             </dl>
             <dl>
-              <dt>{{blogIntro.userCount}}</dt>
+              <dt>{{blogSummary.user_count}}</dt>
               <dd>用户</dd>
             </dl>
             <dl>
-              <dt>{{blogIntro.commentCount}}</dt>
+              <dt>{{blogSummary.comment_count}}</dt>
               <dd>评论</dd>
             </dl>
             <dl>
-              <dt>{{blogIntro.blogViewCount}}</dt>
+              <dt>{{blogSummary.view_count}}</dt>
               <dd>访问</dd>
             </dl>
           </div>
@@ -42,8 +42,8 @@
         </div>
         <div class="recommendLink">
           <h4>
-            <i class="el-icon-link"></i>
-            <span>推荐</span>
+            <i class="el-icon-share"></i>
+            <span>友情链接</span>
           </h4>
           <ul>
             <li v-for="(item, ins) in recommendLink" :key="ins">
@@ -61,13 +61,13 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogHot" :key="ins">
-              <a :href="`/blog/${item.userId}/detail/${item.id}`">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">
                 {{item.title}}
                 <span class="view">
                   <i class="ico icon-view"></i>
-                  {{item.views}}
+                  {{item.view}}
                 </span>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -78,13 +78,13 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogNew" :key="ins">
-              <a :href="`/blog/${item.userId}/detail/${item.id}`">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">
                 {{item.title}}
                 <span class="view">
                   <i class="ico icon-view"></i>
-                  {{item.views}}
+                  {{item.view}}
                 </span>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -106,20 +106,20 @@
         <div class="blog-list" v-if="!blogNull">
           <div class="blog-item-box" v-for="(item, ins) in blogData" :key="ins">
             <h4>
-              <router-link :to="`/blog/${item.userId}/detail/${item.id}`" :class="item.isOriginal === 1 ? 'original' : 'reprint'">
-                <span class="original" v-if="item.isOriginal === 1">原创</span>
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank" :class="item.is_original === 1 ? 'original' : 'reprint'">
+                <span class="original" v-if="item.is_original === 1">原创</span>
                 <span class="reprint" v-else>转载</span>
                 {{item.title}}
               </router-link>
             </h4>
             <p class="content">
-              <router-link :to="`/blog/${item.userId}/detail/${item.id}`">{{item.detail}}</router-link>
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">{{item.desc}}</router-link>
             </p>
             <div class="info">
               <p>
-                <span class="date">{{new Date(item.createTime).pattern("yyyy-MM-dd hh:mm:ss")}}</span>
-                <span class="read-num"><i class="ico icon-view"></i>{{item.views}}</span>
-                <span class="read-num"><i class="ico icon-comment"></i>{{item.comments}}</span>
+                <span class="date">{{new Date(item.created_time).pattern("yyyy-MM-dd hh:mm:ss")}}</span>
+                <span class="read-num"><i class="ico icon-view"></i>{{item.view}}</span>
+                <span class="read-num"><i class="ico icon-comment"></i>{{item.comment}}</span>
               </p>
             </div>
           </div>
@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { apiGetBlogList, apiGetBlogIntro, apiGetBlogHot, apiGetBlogNew } from '@/api/http_url'
+import { apiGetBlogList, apiGetBlogSummary } from '@/api/http_url'
 import MPage from '@/components/MPage'
 
 export default {
@@ -152,47 +152,69 @@ export default {
           link: 'https://blog.csdn.net/weixin_45266125'
         },
         {
-          name: 'go web 开发教程',
+          name: 'Go Long 中国',
           link: 'https://www.qfgolang.com/'
         }
       ],
       blogTotal: 0,
       currentPage: Number.parseInt(this.$route.query.page || 1),
       blogData: [],
-      blogIntro: {},
+      blogSummary: {},
       blogHot: [],
       blogNew: [],
       search: '',
       blogNull: false
     }
   },
+  watch: {
+    search () {
+      this.changePage(1)
+    }
+  },
   created () {
     this.getGetBlogList()
-    this.getGetBlogIntro()
+    this.getGetBlogSummary()
     this.getGetBlogHot()
     this.getGetBlogNew()
+    document.title = '博客' + '_Globm Blog'
   },
   methods: {
     getGetBlogList () {
-      apiGetBlogList({ limit: 10, offset: (this.currentPage - 1) * 10 }).then(res => {
-        this.blogTotal = res.total
-        this.blogData = res.data
+      apiGetBlogList({
+        limit: 10,
+        offset: (this.currentPage - 1) * 10,
+        title: this.search
+      }).then(res => {
+        this.blogTotal = res.count
+        this.blogData = res.rows
         this.blogNull = this.blogData.length === 0
       })
     },
-    getGetBlogIntro () {
-      apiGetBlogIntro().then(res => {
-        this.blogIntro = res
+    getGetBlogSummary () {
+      apiGetBlogSummary().then(res => {
+        this.blogSummary = res
       })
     },
     getGetBlogHot () {
-      apiGetBlogHot({ limit: 6 }).then(res => {
-        this.blogHot = res.data
+      const data = {
+        limit: 6,
+        order: JSON.stringify([
+          ['view', 'DESC']
+        ])
+      }
+      apiGetBlogList(data).then(res => {
+        this.blogHot = res.rows
       })
     },
     getGetBlogNew () {
-      apiGetBlogNew({ limit: 6 }).then(res => {
-        this.blogNew = res.data
+      const data = {
+        limit: 6,
+        order: JSON.stringify([
+          ['created_time', 'DESC']
+        ])
+      }
+      apiGetBlogList(data).then(res => {
+        this.blogNew = res.rows
       })
     },
     changePage (page) {
@@ -208,9 +230,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  ul{
+    li{
+      list-style: none;
+    }
+  }
   main{
-    min-height: 100vh;
-    background: #f5f6f7;
     .main-wrapper{
       width: $max-width;
       margin: 0 auto;
@@ -418,14 +443,13 @@ export default {
               font-weight: normal;
               a{
                 display: block;
-                padding-left: 36px;
                 word-break: break-all;
                 color: #222226;
                 font-size: 18px;
                 line-height: 20px;
                 font-weight: 500;
+                @include single-line-ellipsis;
                 span{
-                  margin-left: -36px;
                   vertical-align: 2px;
                   display: inline-block;
                   box-sizing: border-box;
@@ -453,7 +477,7 @@ export default {
                 font-size: 14px;
                 line-height: 22px;
                 color: #999aaa;
-                @include multi-line-ellipsis(2, 22 / 14);
+                @include multi-line-ellipsis(2);
               }
             }
             .info{

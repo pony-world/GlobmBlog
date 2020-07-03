@@ -9,7 +9,8 @@ module.exports = {
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://localhost:6090',
+        // target: 'http://localhost:8888',
+        target: 'http://www.globm.top:3306',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
