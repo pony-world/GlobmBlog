@@ -7,9 +7,21 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.png">
     <title>Globm Blog</title>
     <meta name="referrer" content="no-referrer"/>
+
+    <!-- cdn -->
+    <% for(var css of htmlWebpackPlugin.options.cdn.css) { %>
+    <link rel="stylesheet" href="<%=css%>">
+    <% } %>
+
   </head>
   <body>
     <noscript>noscript</noscript>
+
+    <!-- cdn -->
+    <% for(var js of htmlWebpackPlugin.options.cdn.js) { %>
+    <script src="<%=js%>"></script>
+    <% } %>
+
     <div id="wrapper"></div>
   </body>
 </html>

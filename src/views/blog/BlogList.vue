@@ -168,7 +168,7 @@
               </p>
             </div>
           </div>
-          <m-page :total="blogTotal" :current-page="currentPage" @change="changePage"/>
+          <m-page v-if="blogTotal > 10" :total="blogTotal" :current-page="currentPage" @change="changePage"/>
         </div>
         <div class="blog-list blog-list-null" v-else>
           <i class="ico icon-null-null"></i>

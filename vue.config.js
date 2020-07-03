@@ -5,6 +5,32 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 // gzip压缩
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
+// cdn 加速
+const cdn = {
+  // cdn：模块名称和模块作用域命名（对应window里面挂载的变量名称）
+  externals: {
+    vue: 'Vue',
+    'vue-router': 'vue-router',
+    'highlight.js': 'hljs'
+  },
+  css: [
+    // element-ui
+    'https://unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css',
+    // highlight
+    'https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/styles/googlecode.min.css'
+  ],
+  js: [
+    // vue
+    'https://cdn.jsdelivr.net/npm/vue@2.6.11',
+    // vue-router
+    'https://unpkg.com/vue-router/dist/vue-router.js',
+    // element-ui
+    'https://unpkg.com/element-ui@2.13.2/lib/index.js',
+    // highlight
+    'https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/highlight.min.js'
+  ]
+}
+
 module.exports = {
   productionSourceMap: false,
   devServer: {
@@ -49,8 +75,16 @@ module.exports = {
         })
       )
     }
+    // cdn externals
+    config.externals = cdn.externals
   },
   chainWebpack: config => {
+    // cdn
+    config.plugin('html')
+      .tap(args => {
+        args[0].cdn = cdn
+        return args
+      })
     // 首页不预先加载其他页面的css和js
     config.plugins.delete('preload')
     config.plugins.delete('prefetch')
@@ -67,7 +101,7 @@ module.exports = {
         commons: {
           name: 'chunk-commons',
           test: path.resolve(__dirname, '.src'), // can customize your rules
-          minChunks: 3, //  minimum common number
+          minChunks: 2, //  minimum common number
           priority: 5,
           reuseExistingChunk: true
         }
@@ -79,12 +113,12 @@ module.exports = {
       new UglifyjsWebpackPlugin({
         // 生产环境推荐关闭 sourcemap 防止源码泄漏
         // 服务端通过前端发送的行列，根据 sourcemap 转为源文件位置
-        sourceMap: !IS_DEV,
+        sourceMap: IS_DEV,
         uglifyOptions: {
           warnings: false,
           compress: {
-            drop_console: true,
-            drop_debugger: true
+            drop_console: false,
+            drop_debugger: false
           }
         }
       })
@@ -102,5 +136,12 @@ module.exports = {
         })
     }
     types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)))
+  },
+  // 是否使用css分离插件 ExtractTextPlugin
+  css: {
+    extract: false,
+    loaderOptions: {
+      scss: {}
+    }
   }
 }

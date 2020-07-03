@@ -132,7 +132,7 @@
           </div>
         </div>
       </aside>
-      <div class="blog-box" ref="blogBox" v-if="userIntro.id">
+      <div class="blog-box" ref="blogBox" v-if="blogIntro.id">
         <div class="header-box">
           <h1>{{blogIntro.title}}</h1>
           <div class="info-box">
