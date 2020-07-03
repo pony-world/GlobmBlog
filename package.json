@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-plugin-component": "^1.1.1",
+    "compression-webpack-plugin": "^4.0.0",
     "core-js": "^3.6.4",
     "crypto-js": "^4.0.0",
     "element-ui": "^2.13.2",
