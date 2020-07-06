@@ -204,9 +204,9 @@
 <script>
 import { apiGetUserIntro, apiGetBlogIntro, apiGetBlogList, apiGetBlogType, apiGetBlogSummary } from '@/api/http_url'
 import marked from 'marked'
-import 'mavon-editor/dist/markdown/github-markdown.min.css'
+// import 'mavon-editor/dist/markdown/github-markdown.min.css'
 import hljs from 'highlight.js'
-import 'highlight.js/styles/googlecode.css'
+// import 'highlight.js/styles/googlecode.css'
 import { getScrollTop, getWindowHeight } from '@/assets/js/util'
 
 export default {

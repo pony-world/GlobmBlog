@@ -10,32 +10,46 @@ const cdn = {
   // cdn：模块名称和模块作用域命名（对应window里面挂载的变量名称）
   externals: {
     vue: 'Vue',
-    'vue-router': 'vue-router',
-    'highlight.js': 'hljs'
+    'vue-router': 'VueRouter',
+    'element-ui': 'ElementUI',
+    'highlight.js': 'hljs',
+    'mavon-editor': 'MavonEditor'
   },
   css: [
     // element-ui
-    'https://unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css',
-    // highlight
-    'https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/styles/googlecode.min.css'
+    'https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/theme-chalk/index.css',
+    // highlight.js
+    'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build//styles/googlecode.min.css',
+    // mavon-editor
+    'https://cdn.jsdelivr.net/npm/mavon-editor@2.9.0/dist/css/index.css',
+    'https://cdn.jsdelivr.net/npm/mavon-editor@2.9.0/dist/markdown/github-markdown.min.css'
   ],
   js: [
     // vue
     'https://cdn.jsdelivr.net/npm/vue@2.6.11',
     // vue-router
-    'https://unpkg.com/vue-router/dist/vue-router.js',
+    'https://cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.js',
     // element-ui
-    'https://unpkg.com/element-ui@2.13.2/lib/index.js',
-    // highlight
-    'https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/highlight.min.js'
+    'https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/index.js',
+    // highlight.js
+    'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js',
+    // mavon-editor
+    'https://cdn.jsdelivr.net/npm/mavon-editor@2.9.0/dist/mavon-editor.js'
   ]
 }
 
 module.exports = {
+  publicPath: '/',
+  outputDir: 'dist',
+  assetsDir: 'static',
   productionSourceMap: false,
   devServer: {
     port: 9009,
     host: '0.0.0.0',
+    overlay: {
+      warnings: false,
+      errors: true
+    },
     proxy: {
       '/api': {
         // target: 'http://localhost:8888',
@@ -58,6 +72,7 @@ module.exports = {
     }
   },
   configureWebpack: config => {
+    config.name = 'Globm Blog'
     // 生产环境相关配置
     if (!IS_DEV) {
       // gzip压缩
@@ -98,6 +113,11 @@ module.exports = {
           priority: 10,
           chunks: 'initial' // only package third parties that are initially dependent
         },
+        elementUI: {
+          name: 'chunk-elementUI', // split elementUI into a single package
+          priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+          test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+        },
         commons: {
           name: 'chunk-commons',
           test: path.resolve(__dirname, '.src'), // can customize your rules
@@ -107,6 +127,7 @@ module.exports = {
         }
       }
     })
+    config.optimization.runtimeChunk('single')
     // UglifyjsWebpackPlugin 压缩代码
     const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
     config.optimization.minimizer = [

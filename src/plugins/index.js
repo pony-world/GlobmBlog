@@ -1,7 +1,6 @@
 
 import Vue from 'vue'
 import './filter'
-import './element-ui'
 import './components'
 
 // notice

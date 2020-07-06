@@ -119,8 +119,8 @@
 <script>
 import { apiGetUserIntro, apiUploadQn, apiGetBlogIntro, apiGetBlogType, apiPostBlogType, apiPostBlog, apiPutBlog } from '@/api/http_url'
 import { mavonEditor } from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-import 'mavon-editor/dist/markdown/github-markdown.min.css'
+// import 'mavon-editor/dist/css/index.css'
+// import 'mavon-editor/dist/markdown/github-markdown.min.css'
 import MTag from '@/components/MTag'
 import { isEmpty } from '@/assets/js/util'
 import HeaderAside from '@/views/system/HeaderAside'
