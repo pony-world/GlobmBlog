@@ -152,7 +152,7 @@ export default {
           link: 'https://blog.csdn.net/weixin_45266125'
         },
         {
-          name: 'Go Long 中国',
+          name: 'Go Lang 中国',
           link: 'https://www.qfgolang.com/'
         }
       ],

@@ -2,7 +2,7 @@
 import axios from 'axios'
 import store from '@/store'
 
-axios.defaults.timeout = 6000
+axios.defaults.timeout = 15000
 
 // http request 拦截器
 axios.interceptors.request.use(

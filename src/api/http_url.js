@@ -36,3 +36,5 @@ export const apiPostBlogType = data => post('/api/blog/type', data)
 export const apiPutBlogType = data => put('/api/blog/type', data)
 export const apiPutBlogTypeSort = data => put('/api/blog/type/sort', data)
 export const apiDelBlogType = data => del('/api/blog/type', data)
+// -------------文章分类_用户
+export const apiPostBlogComment = data => post('/api/blog/comment', data)

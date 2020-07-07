@@ -196,6 +196,7 @@
             <i class="el-icon-arrow-down"></i>
           </span>
         </div>
+        <detail-comment :ID="blogIntro.id"/>
       </div>
     </div>
   </main>
@@ -208,6 +209,7 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 // import 'highlight.js/styles/googlecode.css'
 import { getScrollTop, getWindowHeight } from '@/assets/js/util'
+import DetailComment from '@/views/blog/DetailComment'
 
 export default {
   name: 'IndexPage',
@@ -254,8 +256,8 @@ export default {
     }
   },
   created () {
-    this.getUserIntro()
     this.getGetBlogIntro()
+    this.getUserIntro()
     this.getGetBlogSummary()
     this.getGetBlogHot()
     this.getGetBlogNew()
@@ -264,12 +266,14 @@ export default {
   methods: {
     getUserIntro () {
       apiGetUserIntro({ id: this.userId }).then(res => {
+        this.$store.dispatch('SET_BLOG_USER', res)
         this.userIntro = res
       })
     },
     getGetBlogIntro () {
       apiGetBlogIntro({ id: this.blogId }).then(res => {
         document.title = res.title + '_Globm Blog'
+        this.$store.dispatch('SET_BLOG_TITLE', res.title)
         this.blogIntro = res
         this.blogIntro.content = marked(res.content_md)
         this.handleDetail()
@@ -373,6 +377,11 @@ export default {
   },
   beforeDestroy () {
     window.onscroll = null
+    this.$store.dispatch('SET_BLOG_TITLE', null)
+    this.$store.dispatch('SET_BLOG_USER', null)
+  },
+  components: {
+    DetailComment
   }
 }
 </script>
@@ -660,10 +669,11 @@ export default {
         float: right;
         width: calc(100% - 315px);
         margin-left: 15px;
-        background: white;
-        padding: 16px 24px 24px;
+        /*background: white;*/
+        /*padding: 16px 24px 24px;*/
         .header-box{
-          margin-bottom: 16px;
+          padding: 24px;
+          background: #fff;
           h1{
             margin-bottom: 5px;
             font-size: 20px;
@@ -762,6 +772,8 @@ export default {
         }
         /deep/.content-box{
           overflow: hidden;
+          padding: 0 24px 24px;
+          background: #fff;
           pre{
             border-radius: 3px;
             border: 1px solid #C3CCD0;
@@ -822,6 +834,9 @@ export default {
         }
         .showAll{
           position: relative;
+          left: 0;
+          bottom: 0;
+          padding-bottom: 30px;
           z-index: 99;
           padding-top: 160px;
           margin-top: -160px;

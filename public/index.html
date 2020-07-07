@@ -7,8 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.png">
-    <title><%= webpackConfig.name %></title>
+
+    <title>Globm Blog</title>
+
+    <meta name="description" content='Globm Blog 旨在锻炼自己的能力,向全栈进军！主要分享前端但不限于前端技术。'>
+    <meta name="keywords" content="个人博客,Globm Blog,前端,技术,WEB,blog,Globm,BLOG,node,搭建博客,前端技术,VUE博客">
+    <meta name="anthor" content="Globm Blog">
+    <meta name="robots" content="个人博客,Globm Blog,前端,技术,WEB,blog,Globm,BLOG,node,搭建博客,前端技术,VUE博客">
+
     <meta name="referrer" content="no-referrer"/>
+    <link rel="stylesheet" href="./loading.css">
 
     <!-- cdn -->
     <% for(var css of htmlWebpackPlugin.options.cdn.css) { %>
@@ -25,7 +33,17 @@
     <% } %>
 
     <noscript>noscript</noscript>
-    <div id="wrapper"></div>
+    <div id="wrapper">
+<!--      <div class="custom-loading">-->
+<!--        <div class="custom-loading-box">-->
+<!--          <div class="custom-loading-demo"></div>-->
+<!--          <div class="custom-loading-demo"></div>-->
+<!--          <div class="custom-loading-demo"></div>-->
+<!--          <div class="custom-loading-demo"></div>-->
+<!--          <div class="custom-loading-demo"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
 
   </body>
 

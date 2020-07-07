@@ -11,7 +11,9 @@ export default new Vuex.Store({
       password: /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$/
     },
     token: getToken(),
-    userIntro: null
+    userIntro: null,
+    blogTitle: null,
+    blogUser: null
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -22,6 +24,12 @@ export default new Vuex.Store({
     },
     SET_USER_INTRO: (state, userIntro) => {
       state.userIntro = userIntro
+    },
+    SET_BLOG_TITLE: (state, blogTitle) => {
+      state.blogTitle = blogTitle
+    },
+    SET_BLOG_USER: (state, blogUser) => {
+      state.blogUser = blogUser
     }
   },
   actions: {
@@ -38,6 +46,14 @@ export default new Vuex.Store({
     async SET_USER_INTRO (context, userIntro) {
       context.state.userIntro = userIntro
       await context.commit('SET_USER_INTRO', context.state.userIntro)
+    },
+    async SET_BLOG_TITLE (context, blogTitle) {
+      context.state.blogTitle = blogTitle
+      await context.commit('SET_BLOG_TITLE', context.state.blogTitle)
+    },
+    async SET_BLOG_USER (context, blogUser) {
+      context.state.blogUser = blogUser
+      await context.commit('SET_BLOG_USER', context.state.blogUser)
     }
   },
   getters: {

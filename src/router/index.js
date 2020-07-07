@@ -28,7 +28,8 @@ const routes = [
   },
   {
     path: '/blog/:userId/detail/:blogId',
-    component: _ => import('@/views/blog/DetailPage.vue')
+    component: _ => import('@/views/blog/DetailPage.vue'),
+    meta: { fixed: true }
   },
   // ui
   // {

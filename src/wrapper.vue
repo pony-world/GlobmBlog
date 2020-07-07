@@ -2,7 +2,7 @@
   <div id="wrapper">
     <div  v-if="showWrapper && created">
       <header-list/>
-      <div class="router-view">
+      <div class="router-view" id="main-wrapper">
         <router-view/>
       </div>
       <footer-list/>
