@@ -1,7 +1,5 @@
-::: hljs-center
-
+:::
 **个人博客（[www.globm.top](http://www.globm.top)）**
-
 :::
 
 
