@@ -567,10 +567,10 @@ export default {
         margin-left: 15px;
         background: white;
         .blogType-now{
-          margin: 24px;
           .blogType-now-box{
             background: #f7f7fc;
             border-radius: 4px;
+            margin: 24px;
             .bar-content{
               line-height: 32px;
               .original{

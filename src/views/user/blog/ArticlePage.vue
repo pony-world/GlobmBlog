@@ -79,6 +79,9 @@ export default {
   },
   methods: {
     getBlogList () {
+      this.blogData = []
+      this.blogTotal = 0
+      this.blogNull = false
       let data = {
         limit: 10,
         offset: (this.currentPage - 1) * 10,
@@ -91,7 +94,7 @@ export default {
       apiGetBlog(data).then(res => {
         this.blogData = res.rows
         this.blogTotal = res.count
-        this.blogNull = this.blogData.length === 0
+        this.blogNull = this.blogTotal === 0
       })
     },
     getBlogType () {

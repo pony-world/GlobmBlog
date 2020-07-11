@@ -1,5 +1,7 @@
 <template>
-  <div class="IndexPage">"IndexPage"</div>
+  <main>
+    <div class="main-wrapper"></div>
+  </main>
 </template>
 
 <script>
@@ -16,4 +18,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  main{
+    .main-wrapper{
+      width: 1200px;
+      margin: 0 auto;
+    }
+  }
 </style>

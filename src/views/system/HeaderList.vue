@@ -13,15 +13,15 @@
             <li>
               <router-link to="/index" active-class="active" exact>首页</router-link>
             </li>
-<!--            <li>-->
-<!--              <router-link to="/tool" active-class="active">工具</router-link>-->
-<!--            </li>-->
+            <li>
+              <router-link to="/tool" active-class="active">工具</router-link>
+            </li>
             <li>
               <router-link to="/blog" active-class="active">博客</router-link>
             </li>
-<!--            <li>-->
-<!--              <router-link to="/ui" active-class="active">组件</router-link>-->
-<!--            </li>-->
+            <li>
+              <router-link to="/ui" active-class="active">组件</router-link>
+            </li>
           </ul>
           <a href="https://github.com/pony-world/GlobmBlog" target="_blank" class="btn">
             Github
@@ -161,6 +161,7 @@ export default {
   header{
     height: 64px;
     line-height: 64px;
+    min-width: 1200px;
     background: $primary-color;
     /*box-shadow: 0 4px 12px rgba(138,166,195,.45);*/
     transition: box-shadow .45s cubic-bezier(.215,.61,.355,1);
@@ -172,9 +173,8 @@ export default {
     .header-box{
       position: absolute;
       z-index: 101;
-      width: 100%;
       padding: 0 24px;
-      max-width: 1200px;
+      width: 1200px;
       height: 64px;
       left: calc((100% - 1200px) / 2);
       top: 0;
@@ -267,10 +267,11 @@ export default {
       position: absolute;
       z-index: 100;
       top:0;
-      left: 0;
       height: 64px;
-      width: 100%;
+      width: 1200px;
       overflow: hidden;
+      padding: 0 24px;
+      left: calc((100% - 1200px) / 2);
       &.title-show .title-box{
         transform: translateY(0);
       }

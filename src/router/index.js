@@ -13,10 +13,10 @@ const routes = [
     component: _ => import('@/views/home/IndexPage.vue')
   },
   // 实用工具
-  // {
-  //   path: '/tool',
-  //   component: _ => import('@/views/tool/IndexPage.vue')
-  // },
+  {
+    path: '/tool',
+    component: _ => import('@/views/tool/IndexPage.vue')
+  },
   // 博客
   {
     path: '/blog',
@@ -32,10 +32,10 @@ const routes = [
     meta: { fixed: true }
   },
   // ui
-  // {
-  //   path: '/ui',
-  //   component: _ => import('@/views/ui/IndexPage.vue')
-  // },
+  {
+    path: '/ui',
+    component: _ => import('@/views/ui/IndexPage.vue')
+  },
   // login
   {
     path: '/login',

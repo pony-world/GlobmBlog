@@ -37,4 +37,8 @@ export const apiPutBlogType = data => put('/api/blog/type', data)
 export const apiPutBlogTypeSort = data => put('/api/blog/type/sort', data)
 export const apiDelBlogType = data => del('/api/blog/type', data)
 // -------------文章分类_用户
+export const apiGetBlogComment = data => get('/api/blog/comment', data)
+export const apiGetBlogCommentAll = data => get('/api/blog/comment_all', data)
 export const apiPostBlogComment = data => post('/api/blog/comment', data)
+export const apiPutBlogComment = data => put('/api/blog/comment', data)
+export const apiDelBlogComment = data => del('/api/blog/comment', data)

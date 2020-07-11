@@ -196,7 +196,7 @@
             <i class="el-icon-arrow-down"></i>
           </span>
         </div>
-        <detail-comment :ID="blogIntro.id"/>
+        <detail-comment :id="blogIntro.id"/>
       </div>
     </div>
   </main>
@@ -615,7 +615,7 @@ export default {
           }
         }
         .group-chat{
-          margin-bottom: 8px;
+          margin-bottom: 15px;
           background-color: #fff;
           box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
           padding: 16px 0;

@@ -2,12 +2,14 @@
   <main>
     <banner-list/>
     <trait-list/>
+    <StickyList/>
   </main>
 </template>
 
 <script>
 import BannerList from '@/views/home/BannerList'
 import TraitList from '@/views/home/TraitList'
+import StickyList from '@/views/home/StickyList'
 
 export default {
   created () {
@@ -15,7 +17,8 @@ export default {
   },
   components: {
     BannerList,
-    TraitList
+    TraitList,
+    StickyList
   }
 }
 </script>

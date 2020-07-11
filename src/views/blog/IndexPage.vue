@@ -150,10 +150,6 @@ export default {
         {
           name: 'csdn 个人博客',
           link: 'https://blog.csdn.net/weixin_45266125'
-        },
-        {
-          name: 'Go Lang 中国',
-          link: 'https://www.qfgolang.com/'
         }
       ],
       blogTotal: 0,
