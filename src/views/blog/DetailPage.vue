@@ -273,6 +273,11 @@ export default {
     getGetBlogIntro () {
       apiGetBlogIntro({ id: this.blogId }).then(res => {
         document.title = res.title + '_Globm Blog'
+        const head = document.getElementsByTagName('head')
+        const meta = document.createElement('meta')
+        document.querySelector('meta[name="keywords"]').setAttribute('content', res.tag)
+        document.querySelector('meta[name="description"]').setAttribute('content', res.desc)
+        head[0].appendChild(meta)
         this.$store.dispatch('SET_BLOG_TITLE', res.title)
         this.blogIntro = res
         this.blogIntro.content = marked(res.content_md)

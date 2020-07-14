@@ -143,7 +143,7 @@ export default {
     },
     scrollTitle () {
       const scrollTop = getScrollTop()
-      this.showTitle = this.scrollY < scrollTop
+      this.showTitle = this.scrollY < scrollTop && scrollTop >= this.$refs.header.clientHeight
       this.scrollY = scrollTop
     }
   },
@@ -165,8 +165,9 @@ export default {
     background: $primary-color;
     /*box-shadow: 0 4px 12px rgba(138,166,195,.45);*/
     transition: box-shadow .45s cubic-bezier(.215,.61,.355,1);
+    transform: translateY(0);
     /*overflow: hidden;*/
-    position: relative;
+    /*position: relative;*/
     ul{
       list-style: none;
     }
@@ -322,11 +323,12 @@ export default {
     }
     &.fixed{
       position: fixed;
-      top: 0;
+      top: -64px;
       left: 0;
       width: 100%;
-      z-index: 100;
-      transition: .5s ease-in-out;
+      z-index: 999;
+      transform: translateY(64px);
+      transition: transform .45s cubic-bezier(.215,.61,.355,1);
     }
   }
 </style>
