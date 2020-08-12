@@ -4,7 +4,7 @@
       <aside ref="aside" :class="asideFixed ? 'fixed' : ''">
         <div class="profile">
           <div class="intro">
-            <router-link :to="`/blog/${userIntro.id}`" target="_blank" class="avatar">
+            <router-link :to="`/blog/${userIntro.id}`" class="avatar">
               <img :src="userIntro.avatar || require('@/assets/img/user-avatar.jpg')" alt="" @error="handleError">
             </router-link>
             <div class="blog-info">
@@ -43,7 +43,7 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogType" :key="ins">
-              <router-link :to="`/blog/${userIntro.id}?typeId=${item.id}`" target="_blank">
+              <router-link :to="`/blog/${userIntro.id}?typeId=${item.id}`">
                 <img :src="item.logo || require('@/assets/img/blog/blog-type.jpg')" alt="">
                 <span class="type" :title="item.title">{{item.title}}</span>
                 <span class="view">
@@ -91,7 +91,7 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogHot" :key="ins">
-              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`">
                 {{item.title}}
                 <span class="view">
                   <i class="ico icon-view"></i>
@@ -108,7 +108,7 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogNew" :key="ins">
-              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`">
                 {{item.title}}
                 <span class="view">
                   <i class="ico icon-view"></i>
@@ -204,7 +204,8 @@
 
 <script>
 import { apiGetUserIntro, apiGetBlogIntro, apiGetBlogList, apiGetBlogType, apiGetBlogSummary } from '@/api/http_url'
-import marked from 'marked'
+import { mavonEditor } from 'mavon-editor'
+// import marked from 'marked'
 // import 'mavon-editor/dist/markdown/github-markdown.min.css'
 import hljs from 'highlight.js'
 // import 'highlight.js/styles/googlecode.css'
@@ -264,6 +265,7 @@ export default {
     this.getGetBlogType()
   },
   methods: {
+    // 获取用户信息
     getUserIntro () {
       apiGetUserIntro({ id: this.userId }).then(res => {
         this.$store.dispatch('SET_BLOG_USER', res)
@@ -272,18 +274,24 @@ export default {
     },
     getGetBlogIntro () {
       apiGetBlogIntro({ id: this.blogId }).then(res => {
+        // 改变网页标题
         document.title = res.title + '_Globm Blog'
-        const head = document.getElementsByTagName('head')
-        const meta = document.createElement('meta')
-        document.querySelector('meta[name="keywords"]').setAttribute('content', res.tag)
-        document.querySelector('meta[name="description"]').setAttribute('content', res.desc)
-        head[0].appendChild(meta)
+        // const head = document.getElementsByTagName('head')
+        // const meta = document.createElement('meta')
+        // document.querySelector('meta[name="keywords"]').setAttribute('content', res.tag)
+        // document.querySelector('meta[name="description"]').setAttribute('content', res.desc)
+        // head[0].appendChild(meta)
         this.$store.dispatch('SET_BLOG_TITLE', res.title)
         this.blogIntro = res
-        this.blogIntro.content = marked(res.content_md)
+        // marked 解析
+        // this.blogIntro.content = marked(res.content_md)
+        // MarkdownIt 解析
+        const md = mavonEditor.getMarkdownIt()
+        this.blogIntro.content = md.render(res.content_md)
         this.handleDetail()
       })
     },
+    // highlight
     handleDetail () {
       this.$nextTick(_ => {
         this.$refs.content.querySelectorAll('pre code').forEach(item => {
@@ -312,10 +320,13 @@ export default {
         this.verifyScroll()
       })
     },
+    // 固定高度
     verifyHeight () {
-      const height = this.$refs.content.clientHeight
-      this.showAll = this.maxHeight > height
+      // const height = this.$refs.content.clientHeight
+      // this.showAll = this.maxHeight > height
+      this.showAll = true
     },
+    // 滚动监听
     verifyScroll () {
       let elHeight = 0
       window.onscroll = _ => {
@@ -333,11 +344,13 @@ export default {
         }
       }
     },
+    // 文章统计
     getGetBlogSummary () {
       apiGetBlogSummary({ user_id: this.userId }).then(res => {
         this.blogSummary = res
       })
     },
+    // 热门文章
     getGetBlogHot () {
       const data = {
         limit: 6,
@@ -350,6 +363,7 @@ export default {
         this.blogHot = res.rows
       })
     },
+    // 最新文章
     getGetBlogNew () {
       const data = {
         limit: 6,
@@ -362,14 +376,17 @@ export default {
         this.blogNew = res.rows
       })
     },
+    // 文章分类
     getGetBlogType () {
       apiGetBlogType({ user_id: this.userId }).then(res => {
         this.blogType = res.rows
       })
     },
+    // 用户图片加载失败
     handleError (e) {
       e.target.src = require('@/assets/img/user-avatar.jpg')
     },
+    // 外链跳转
     hrefClick (e) {
       if (e.target.localName === 'a') {
         const { href } = this.$router.resolve({
@@ -380,6 +397,7 @@ export default {
       }
     }
   },
+  // 监听移除
   beforeDestroy () {
     window.onscroll = null
     this.$store.dispatch('SET_BLOG_TITLE', null)
@@ -782,58 +800,68 @@ export default {
           pre{
             border-radius: 3px;
             border: 1px solid #C3CCD0;
+            padding: 16px 16px 16px 55px;
             position: relative;
             overflow-y: hidden;
-            padding: 16px 16px 16px 60px;
-            /*background: #fff;*/
+            font-size: 1em;
+            background: white;
             &:after{
               content: '';
               position: absolute;
               bottom: 0;
               left: 0;
-              width: 100%;
+              width: 40px;
               height: 16px;
-              background: #f6f8fa;
+              /*background: #f6f8fa;*/
+              background: #f1f1f1;
             }
-            code{
-              line-height: 26px;
-            }
-            > ol{
-              position: absolute;
-              top: 0;
-              left: 5px;
-              line-height: 26px;
-              padding: 16px 0;
-              list-style-type:none;
-              counter-reset:sectioncounter;
-              margin-bottom: 0;
-              li{
-                margin-top: 0;
-                &:before{
-                  content:counter(sectioncounter) "";
-                  counter-increment:sectioncounter;
-                  display: inline-block;
-                  width: 40px;
-                  text-align: center;
-                  border-right: solid 1px rgba(0, 0, 0, 0.53);
+            div.hljs{
+              padding: 0;
+              /*background: #f6f8fa;*/
+              background: white;
+              code{
+                line-height: 26px;
+              }
+              > ol{
+                position: absolute;
+                top: 0;
+                left: 0;
+                line-height: 26px;
+                padding: 16px 0;
+                list-style-type:none;
+                counter-reset:sectioncounter;
+                margin-bottom: 0;
+                background: #f1f1f1;
+                color: #777;
+                font-size: 12px;
+                li{
+                  margin-top: 0;
+                  &:before{
+                    content:counter(sectioncounter) "";
+                    counter-increment:sectioncounter;
+                    display: inline-block;
+                    width: 40px;
+                    text-align: center;
+                    /*border-right: solid 1px #777;*/
+                  }
                 }
               }
-            }
-            i.code-copy{
-              position: absolute;
-              top:0;
-              right: 0;
-              background-color: #555;
-              padding: 3px;
-              margin: 5px 5px 0 0;
-              font-size: 11px;
-              border-radius: inherit;
-              color: #fff;
-              cursor: pointer;
-              display: none;
-            }
-            &:hover i.code-copy{
-              display: block;
+              i.code-copy{
+                position: absolute;
+                top:0;
+                right: 0;
+                background-color: #555;
+                padding: 3px;
+                margin: 5px 5px 0 0;
+                font-size: 11px;
+                border-radius: inherit;
+                color: #fff;
+                cursor: pointer;
+                display: none;
+              }
+              &:hover i.code-copy{
+                display: block;
+              }
             }
           }
         }

@@ -91,7 +91,7 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogHot" :key="ins">
-              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`">
                 {{item.title}}
                 <span class="view">
                   <i class="ico icon-view"></i>
@@ -108,7 +108,7 @@
           </h4>
           <ul>
             <li v-for="(item, ins) in blogNew" :key="ins">
-              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`">
                 {{item.title}}
                 <span class="view">
                   <i class="ico icon-view"></i>
@@ -151,14 +151,14 @@
         <div class="blog-list" v-if="!blogNull">
           <div class="blog-item-box" v-for="(item, ins) in blogData" :key="ins">
             <h4>
-              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank" :class="item.is_original === 1 ? 'original' : 'reprint'">
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" :class="item.is_original === 1 ? 'original' : 'reprint'">
                 <span class="original" v-if="item.is_original === 1">原创</span>
                 <span class="reprint" v-else>转载</span>
                 {{item.title}}
               </router-link>
             </h4>
             <p class="content">
-              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" target="_blank">{{item.desc}}</router-link>
+              <router-link :to="`/blog/${item.user_id}/detail/${item.id}`">{{item.desc}}</router-link>
             </p>
             <div class="info">
               <p>
