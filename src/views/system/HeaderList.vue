@@ -12,17 +12,17 @@
           <div class="menu">
             <ul class="nav">
               <li>
-                <router-link to="/index" active-class="active" exact>首页</router-link>
+                <router-link to="/" active-class="active" exact>首页</router-link>
               </li>
-<!--              <li>-->
-<!--                <router-link to="/tool" active-class="active">工具</router-link>-->
-<!--              </li>-->
+              <li>
+                <router-link to="/tool" active-class="active">工具</router-link>
+              </li>
               <li>
                 <router-link to="/blog" active-class="active">博客</router-link>
               </li>
-<!--              <li>-->
-<!--                <router-link to="/ui" active-class="active">组件</router-link>-->
-<!--              </li>-->
+              <li>
+                <router-link to="/ui" active-class="active">组件</router-link>
+              </li>
             </ul>
             <a href="https://github.com/pony-world/GlobmBlog" target="_blank" class="btn">
               Github

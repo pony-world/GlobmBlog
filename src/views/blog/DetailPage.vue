@@ -263,17 +263,30 @@ export default {
     this.getGetBlogHot()
     this.getGetBlogNew()
     this.getGetBlogType()
+    const result = Promise.all([
+      this.getGetBlogIntro(),
+      this.getUserIntro(),
+      this.getGetBlogSummary(),
+      this.getGetBlogHot(),
+      this.getGetBlogNew(),
+      this.getGetBlogType()
+    ])
+    result.then((data) => {
+      this.verifyScroll()
+    }, (err) => {
+      console.error(err)
+    })
   },
   methods: {
     // 获取用户信息
     getUserIntro () {
-      apiGetUserIntro({ id: this.userId }).then(res => {
+      return apiGetUserIntro({ id: this.userId }).then(res => {
         this.$store.dispatch('SET_BLOG_USER', res)
         this.userIntro = res
       })
     },
     getGetBlogIntro () {
-      apiGetBlogIntro({ id: this.blogId }).then(res => {
+      return apiGetBlogIntro({ id: this.blogId }).then(res => {
         // 改变网页标题
         document.title = res.title + '_Globm Blog'
         // const head = document.getElementsByTagName('head')
@@ -317,7 +330,6 @@ export default {
           }
         })
         this.verifyHeight()
-        this.verifyScroll()
       })
     },
     // 固定高度
@@ -346,7 +358,7 @@ export default {
     },
     // 文章统计
     getGetBlogSummary () {
-      apiGetBlogSummary({ user_id: this.userId }).then(res => {
+      return apiGetBlogSummary({ user_id: this.userId }).then(res => {
         this.blogSummary = res
       })
     },
@@ -359,7 +371,7 @@ export default {
           ['view', 'DESC']
         ])
       }
-      apiGetBlogList(data).then(res => {
+      return apiGetBlogList(data).then(res => {
         this.blogHot = res.rows
       })
     },
@@ -372,13 +384,13 @@ export default {
           ['created_time', 'DESC']
         ])
       }
-      apiGetBlogList(data).then(res => {
+      return apiGetBlogList(data).then(res => {
         this.blogNew = res.rows
       })
     },
     // 文章分类
     getGetBlogType () {
-      apiGetBlogType({ user_id: this.userId }).then(res => {
+      return apiGetBlogType({ user_id: this.userId }).then(res => {
         this.blogType = res.rows
       })
     },
@@ -858,10 +870,11 @@ export default {
                 color: #fff;
                 cursor: pointer;
                 display: none;
+                transition: all .3s ease-in-out;
               }
-              &:hover i.code-copy{
-                display: block;
-              }
+            }
+            &:hover .hljs i.code-copy{
+              display: block;
             }
           }
         }

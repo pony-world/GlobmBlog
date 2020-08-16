@@ -6,16 +6,16 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/index'
-  },
-  {
-    path: '/index',
     component: _ => import('@/views/home/IndexPage.vue')
   },
   // 实用工具
   {
     path: '/tool',
     component: _ => import('@/views/tool/IndexPage.vue')
+  },
+  {
+    path: '/tool/:flag',
+    component: _ => import('@/views/tool/DetailPage.vue')
   },
   // 博客
   {

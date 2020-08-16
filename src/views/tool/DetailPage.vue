@@ -9,12 +9,11 @@
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: 'DetailPage',
   data () {
     return {}
   },
   created () {
-    document.title = '组件' + '_Globm Blog'
   },
   methods: {}
 }

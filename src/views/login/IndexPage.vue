@@ -128,8 +128,8 @@
             </el-input>
             <m-slider-verify :verify.sync="sliderVerify"/>
             <el-button type="primary" :loading="loading" @click="handleSubmit">登录</el-button>
-            <el-button :loading="loading" @click="handleSubmit">游客一键登录</el-button>
-            <p>没有账户？<span @click="handleRegister">注册</span></p>
+<!--            <el-button :loading="loading" @click="handleSubmit">游客一键登录</el-button>-->
+            <p>还没有账户？<span @click="handleRegister">注册</span></p>
           </div>
         </div>
       </div>
@@ -209,7 +209,7 @@ export default {
       return true
     },
     handleRegister () {
-      this.$notice('注册功能暂未开发，如有需要请联系博主')
+      this.$notice('注册功能暂未开放，如有需要请联系博主')
     }
   },
   components: {

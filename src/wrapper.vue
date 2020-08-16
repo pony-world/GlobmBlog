@@ -30,7 +30,7 @@ export default {
         this.showWrapper = newVal !== '/user/blog/issue'
         this.created = true
       },
-      immediate: false
+      immediate: true
     }
   },
   components: {
