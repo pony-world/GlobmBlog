@@ -1,7 +1,7 @@
 <template>
   <div class="footer-container">
     <div class="bg">
-      <svg width="1200px" height="420px" viewBox="0 0 1200 300" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <svg width="1200px" height="330px" viewBox="0 0 1200 300" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g style="transform: translate(0px, -1.5712px);">
           <circle id="Oval-8" stroke="#13C2C2" cx="530" cy="195" r="5"></circle>
         </g>
@@ -67,10 +67,11 @@ export default {
     min-height: 292px;
     text-align: center;
     position: relative;
+    overflow: hidden;
     .bg{
       width: 1200px;
       position: absolute;
-      top: 0;
+      top: 50px;
       left: 50%;
       margin-left: -600px;
       transform: scale(1.3);
@@ -79,6 +80,8 @@ export default {
       padding: 128px 24px;
       max-width: 1200px;
       margin: auto;
+      position: relative;
+      z-index: 10;
       p{
         margin: 0 auto 40px;
         font-size: 14px;
