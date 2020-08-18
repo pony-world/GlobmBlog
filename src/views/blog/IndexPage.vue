@@ -144,7 +144,7 @@ export default {
     return {
       recommendLink: [
         {
-          name: 'github 项目',
+          name: 'github 项目源码',
           link: 'https://github.com/pony-world/GlobmBlog'
         },
         {

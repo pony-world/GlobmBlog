@@ -1,9 +1,9 @@
 <template>
   <main>
     <!--  分类Tabs  -->
-    <el-tabs v-model="activeName">
-      <el-tab-pane label="全部" name="first"></el-tab-pane>
-    </el-tabs>
+<!--    <el-tabs v-model="activeName">-->
+<!--      <el-tab-pane label="全部" name="first"></el-tab-pane>-->
+<!--    </el-tabs>-->
     <!--  工具列表  -->
     <div class="tool-wrapper">
       <!--   工具盒子   -->
@@ -127,12 +127,6 @@ export default {
         },
         {
           logo: 'http://image.springup9.com/image/20200814/1ub78n6fmkwvqqj48ow.jpeg',
-          title: '盘搜',
-          flag: 'js',
-          desc: '百度、微博网盘搜索'
-        },
-        {
-          logo: 'http://image.springup9.com/image/20200814/1ub78n6fmkwvqqj48ow.jpeg',
           title: 'ruby工具',
           flag: 'js',
           desc: 'ruby代码在线美化'
@@ -181,6 +175,7 @@ export default {
     margin: 0 auto;
     /* 工具列表 */
     .tool-wrapper{
+      margin: 30px 0;
       display: flex;
       flex-wrap: wrap;
       /* 工具盒子 */

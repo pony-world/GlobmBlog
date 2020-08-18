@@ -31,10 +31,11 @@ const routes = [
     component: _ => import('@/views/blog/DetailPage.vue'),
     meta: { fixed: true }
   },
-  // ui
+  // doc
   {
-    path: '/ui',
-    component: _ => import('@/views/ui/IndexPage.vue')
+    path: '/doc',
+    component: _ => import('@/views/doc/IndexPage.vue'),
+    meta: { navAll: true }
   },
   // login
   {

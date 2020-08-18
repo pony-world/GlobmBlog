@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <header ref="header" :class="fixed ? 'fixed' : ''">
-      <div class="header-box" :class="showTitle ? 'default-hide' : 'default-show'">
+      <div class="header-box" :class="[showTitle ? 'default-hide' : 'default-show', navAll ? 'show-all' : '']">
         <div class="logo">
           <router-link to="/redirect">
             <img src="../../assets/img/logo.png" alt="">
@@ -20,9 +20,9 @@
               <li>
                 <router-link to="/blog" active-class="active">博客</router-link>
               </li>
-              <li>
-                <router-link to="/ui" active-class="active">组件</router-link>
-              </li>
+<!--              <li>-->
+<!--                <router-link to="/doc" active-class="active">文档</router-link>-->
+<!--              </li>-->
             </ul>
             <a href="https://github.com/pony-world/GlobmBlog" target="_blank" class="btn">
               Github
@@ -49,7 +49,7 @@
         </div>
       </div>
     </header>
-    <div :class="fixed ? 'header-box' : ''"></div>
+    <div :class="fixed ? 'header-bottom-box' : ''"></div>
   </div>
 </template>
 
@@ -65,6 +65,7 @@ export default {
       token: '',
       userIntro: {},
       fixed: false,
+      navAll: false,
       blogTitle: '',
       blogUser: {},
       showTitle: false,
@@ -93,6 +94,13 @@ export default {
     '$route.meta.fixed': {
       handler (newVal) {
         this.fixed = !!newVal
+      },
+      immediate: true,
+      deep: true
+    },
+    '$route.meta.navAll': {
+      handler (newVal) {
+        this.navAll = !!newVal
       },
       immediate: true,
       deep: true
@@ -152,10 +160,6 @@ export default {
       line-height: 64px;
       min-width: 1200px;
       background: $primary-color;
-      /*box-shadow: 0 4px 12px rgba(138,166,195,.45);*/
-      transition: box-shadow .45s cubic-bezier(.215,.61,.355,1);
-      /*overflow: hidden;*/
-      /*position: relative;*/
       ul{
         list-style: none;
       }
@@ -167,12 +171,20 @@ export default {
         height: 64px;
         left: calc((100% - 1200px) / 2);
         top: 0;
-        transition: padding .45s cubic-bezier(.215,.61,.355,1),max-width .45s cubic-bezier(.215,.61,.355,1), transform .3s cubic-bezier(.215,.61,.355,1);
+        transition: padding .45s cubic-bezier(.215,.61,.355,1),
+        max-width .45s cubic-bezier(.215,.61,.355,1),
+        width .45s cubic-bezier(.215,.61,.355,1),
+        left .45s cubic-bezier(.215,.61,.355,1),
+        transform .3s cubic-bezier(.215,.61,.355,1);
         &.default-show {
           transform: translateY(0);
         }
         &.default-hide {
           transform: translateY(-100%);
+        }
+        &.show-all{
+          left: 0;
+          width: 100%;
         }
         .logo{
           float: left;
@@ -317,7 +329,7 @@ export default {
         z-index: 999;
       }
     }
-    .header-box{
+    .header-bottom-box{
       height: 64px;
     }
   }

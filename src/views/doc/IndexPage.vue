@@ -1,19 +1,21 @@
 <template>
-  <div class="StickyList">
-  </div>
+  <main>
+  </main>
 </template>
 
 <script>
 export default {
-  name: 'StickyList',
+  name: 'IndexPage',
   data () {
     return {}
   },
   created () {
-  },
-  methods: {}
+    document.title = '文档' + '_Globm Blog'
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+  main{
+  }
 </style>

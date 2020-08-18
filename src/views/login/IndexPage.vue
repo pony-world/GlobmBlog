@@ -293,11 +293,11 @@ export default {
           p{
             color: #fff;
             line-height: 34px;
-            height: 340px;
             @include multi-line-ellipsis(9);
           }
           span{
             display: inline-block;
+            margin-top: 15px;
             min-width: 120px;
             height: 40px;
             padding: 0 10px;

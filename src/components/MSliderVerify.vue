@@ -36,7 +36,7 @@ export default {
         if (this.disX <= 0) {
           this.disX = 0
         }
-        if (this.disX >= MaxX - eleWidth) {
+        if (this.disX - 38 >= MaxX - eleWidth) {
           this.disX = MaxX
         }
         slider.style.transition = '.1s all'

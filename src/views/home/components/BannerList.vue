@@ -114,10 +114,10 @@
           <i class="right"></i>
           <i class="top"></i>
           <i class="bottom"></i>
-          <img src="../../assets/img/logo.png" alt="logo">
+          <img src="@/assets/img/logo.png" alt="logo">
         </div>
         <p class="detail">
-          Globm Blog 旨在锻炼自己的能力,向全栈进军！并将遇到的一些问题进行整理,还添加了一些实用的小工具
+          Globm Blog 个人博客旨在锻炼自己的能力,向全栈进军！并将遇到的一些问题进行整理,还添加了一些实用的小工具
         </p>
         <div class="btn-wrapper">
           <router-link to="/tool">实用工具</router-link>
@@ -125,7 +125,7 @@
         </div>
         <div class="gitBtn-wrapper">
           <a href="https://github.com/pony-world/GlobmBlog" target="_blank">
-            <img src="../../assets/img/ico/github.png" alt="">
+            <img src="@/assets/img/ico/github.png" alt="">
             <span>Star</span>
           </a>
         </div>

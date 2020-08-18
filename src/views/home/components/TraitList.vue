@@ -2,7 +2,7 @@
   <div class="TraitList">
     <div class="summary">
       <div class="summary-box">
-        <h2>三大功能</h2>
+        <h2>功能</h2>
         <div class="content" ref="summary" :class="summaryShow ? 'show' : ''">
           <div class="column">
             <div class="column-box">
@@ -16,7 +16,7 @@
                 <i></i>
               </div>
               <router-link tag="div" to="/tool" class="ico-box">
-                <img src="../../assets/img/ico/tool-ico.png" alt="">
+                <img src="@/assets/img/ico/tool-ico.png" alt="">
               </router-link>
             </div>
             <span>实用工具</span>
@@ -33,28 +33,28 @@
                 <i></i>
               </div>
               <router-link tag="div" to="/blog" class="ico-box">
-                <img src="../../assets/img/ico/blog-ico.png" alt="">
+                <img src="@/assets/img/ico/blog-ico.png" alt="">
               </router-link>
             </div>
             <span>博客 Blog</span>
           </div>
-          <div class="column">
-            <div class="column-box">
-              <div class="point-box">
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </div>
-              <router-link tag="div" to="/ui" class="ico-box">
-                <img src="../../assets/img/ico/ui-ico.png" alt="">
-              </router-link>
-            </div>
-            <span>UI 组件</span>
-          </div>
+<!--          <div class="column">-->
+<!--            <div class="column-box">-->
+<!--              <div class="point-box">-->
+<!--                <i></i>-->
+<!--                <i></i>-->
+<!--                <i></i>-->
+<!--                <i></i>-->
+<!--                <i></i>-->
+<!--                <i></i>-->
+<!--                <i></i>-->
+<!--              </div>-->
+<!--              <router-link tag="div" to="/doc" class="ico-box">-->
+<!--                <img src="@/assets/img/ico/ui-ico.png" alt="">-->
+<!--              </router-link>-->
+<!--            </div>-->
+<!--            <span>文档</span>-->
+<!--          </div>-->
         </div>
       </div>
     </div>
@@ -116,29 +116,37 @@ export default {
         text-align: center;
         padding: 80px 24px;
         h2{
-          font-size: 26px;
-          letter-spacing: 2px;
+          font-size: 23px;
+          letter-spacing: 3px;
           line-height: 45px;
-          color: #555;
-          margin-bottom: 64px;
+          color: #333;
+          margin-bottom: 80px;
           font-weight: 500;
+          position: relative;
+          &:after{
+            content: '';
+            width: 40px;
+            height: 3px;
+            background: $primary-color;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            margin-left: -20px;
+          }
         }
         .content{
           transform: translate(0, 300px);
           opacity: 0;
           transition: .3s;
+          display: flex;
+          justify-content: space-around;
           &.show{
             transform: translate(0, 0);
             opacity: 1;
           }
-          &:after{
-            content: '';
-            display: block;
-            clear: both;
-          }
           .column{
-            float: left;
-            width: calc(100% / 3);
+            /*float: left;*/
+            /*width: calc(100% / 3);*/
             &:nth-child(1) .ico-box{
               box-shadow: 0 16px 32px rgba(237,64,64,.1);
               &:hover{
