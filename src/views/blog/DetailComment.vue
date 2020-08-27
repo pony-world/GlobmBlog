@@ -48,7 +48,7 @@ export default {
         ],
         email: [
           { required: true, message: '请输入邮箱', trigger: 'change' },
-          { pattern: this.$store.state.regular.email, message: '邮箱格式不正确' }
+          { pattern: this.$store.state.regular.email, message: '邮箱格式不正确', trigger: 'blur' }
         ],
         content: [
           { required: true, message: '请输入评论', trigger: 'change' },
@@ -83,11 +83,11 @@ export default {
           this.loading = true
           apiPostBlogComment(data).then(_ => {
             this.$notice.success('评论成功')
-            this.form.content = ''
             this.commentList.unshift({
               ...data,
               created_time: new Date()
             })
+            this.resetForm()
             this.loading = false
           }).catch(err => {
             this.loading = false

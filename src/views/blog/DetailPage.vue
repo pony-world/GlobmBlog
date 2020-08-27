@@ -873,7 +873,51 @@ export default {
                 transition: all .3s ease-in-out;
               }
             }
+            & > code{
+              line-height: 26px;
+            }
+            & > ol{
+              position: absolute;
+              top: 0;
+              left: 0;
+              line-height: 26px;
+              padding: 16px 0;
+              list-style-type:none;
+              counter-reset:sectioncounter;
+              margin-bottom: 0;
+              background: #f1f1f1;
+              color: #777;
+              font-size: 12px;
+              li{
+                margin-top: 0;
+                &:before{
+                  content:counter(sectioncounter) "";
+                  counter-increment:sectioncounter;
+                  display: inline-block;
+                  width: 40px;
+                  text-align: center;
+                  /*border-right: solid 1px #777;*/
+                }
+              }
+            }
+            & > i.code-copy{
+              position: absolute;
+              top:0;
+              right: 0;
+              background-color: #555;
+              padding: 3px;
+              margin: 5px 5px 0 0;
+              font-size: 11px;
+              border-radius: inherit;
+              color: #fff;
+              cursor: pointer;
+              display: none;
+              transition: all .3s ease-in-out;
+            }
             &:hover .hljs i.code-copy{
+              display: block;
+            }
+            &:hover > i.code-copy{
               display: block;
             }
           }
