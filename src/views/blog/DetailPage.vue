@@ -271,7 +271,7 @@ export default {
       this.getGetBlogNew(),
       this.getGetBlogType()
     ])
-    result.then((data) => {
+    result.then(_ => {
       this.verifyScroll()
     }, (err) => {
       console.error(err)
@@ -280,28 +280,46 @@ export default {
   methods: {
     // 获取用户信息
     getUserIntro () {
-      return apiGetUserIntro({ id: this.userId }).then(res => {
-        this.$store.dispatch('SET_BLOG_USER', res)
-        this.userIntro = res
+      return new Promise((resolve, reject) => {
+        apiGetUserIntro({ id: this.userId }).then(res => {
+          if (res.id) {
+            this.$store.dispatch('SET_BLOG_USER', res)
+            this.userIntro = res
+            resolve()
+          } else {
+            this.$router.replace('/blog')
+            const err = 'user intro is null'
+            reject(err)
+          }
+        })
       })
     },
     getGetBlogIntro () {
-      return apiGetBlogIntro({ id: this.blogId }).then(res => {
-        // 改变网页标题
-        document.title = res.title + '_Globm Blog'
-        // const head = document.getElementsByTagName('head')
-        // const meta = document.createElement('meta')
-        // document.querySelector('meta[name="keywords"]').setAttribute('content', res.tag)
-        // document.querySelector('meta[name="description"]').setAttribute('content', res.desc)
-        // head[0].appendChild(meta)
-        this.$store.dispatch('SET_BLOG_TITLE', res.title)
-        this.blogIntro = res
-        // marked 解析
-        // this.blogIntro.content = marked(res.content_md)
-        // MarkdownIt 解析
-        const md = mavonEditor.getMarkdownIt()
-        this.blogIntro.content = md.render(res.content_md)
-        this.handleDetail()
+      return new Promise((resolve, reject) => {
+        apiGetBlogIntro({ id: this.blogId }).then(res => {
+          if (res.id) {
+            // 改变网页标题
+            document.title = res.title + '_Globm Blog'
+            // const head = document.getElementsByTagName('head')
+            // const meta = document.createElement('meta')
+            // document.querySelector('meta[name="keywords"]').setAttribute('content', res.tag)
+            // document.querySelector('meta[name="description"]').setAttribute('content', res.desc)
+            // head[0].appendChild(meta)
+            this.$store.dispatch('SET_BLOG_TITLE', res.title)
+            this.blogIntro = res
+            // marked 解析
+            // this.blogIntro.content = marked(res.content_md)
+            // MarkdownIt 解析
+            const md = mavonEditor.getMarkdownIt()
+            this.blogIntro.content = md.render(res.content_md)
+            this.handleDetail()
+            resolve()
+          } else {
+            this.$router.replace('/blog')
+            const err = 'blog intro is null'
+            reject(err)
+          }
+        })
       })
     },
     // highlight

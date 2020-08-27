@@ -197,12 +197,19 @@ export default {
       blogNull: false,
       blogTotal: 0,
       currentPage: Number.parseInt(this.$route.query.page || 1),
-      blogData: []
+      blogData: [],
+      timer: null
     }
   },
   watch: {
     search () {
-      this.changePage(1)
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(_ => {
+        this.$store.commit('SET_API_REMOVE')
+        this.changePage(1)
+      }, 300)
     }
   },
   created () {

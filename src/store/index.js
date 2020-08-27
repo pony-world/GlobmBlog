@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    cancelApiArr: [],
     regular: {
       email: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
       password: /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$/
@@ -16,6 +17,14 @@ export default new Vuex.Store({
     blogUser: null
   },
   mutations: {
+    SET_API_APPEND: (state, src) => {
+      state.cancelApiArr.push(src.cancelToken)
+    },
+    SET_API_REMOVE: ({ cancelApiArr }) => {
+      cancelApiArr.forEach(item => {
+        item('路由跳转取消请求')
+      })
+    },
     SET_TOKEN: (state, token) => {
       state.token = token
     },
