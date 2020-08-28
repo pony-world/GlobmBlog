@@ -227,7 +227,13 @@ export default {
         offset: (this.currentPage - 1) * 10,
         user_id: this.userId,
         type_id: this.typeId,
-        title: this.search
+        title: this.search,
+        order: JSON.stringify([
+          ['is_top', 'DESC'],
+          ['updated_time', 'ASC'],
+          ['view', 'ASC'],
+          ['comment', 'ASC']
+        ])
       }).then(res => {
         this.blogTotal = res.count
         this.blogData = res.rows

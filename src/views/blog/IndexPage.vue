@@ -104,7 +104,11 @@
       </aside>
       <div class="blog-box">
         <div class="blog-list" v-if="!blogNull">
+          <div class="filter-box">
+            <el-checkbox v-model="checkOriginal" @change="changePage(1)">只看原创</el-checkbox>
+          </div>
           <div class="blog-item-box" v-for="(item, ins) in blogData" :key="ins">
+            <span class="settop" v-if="item.is_top === 1">置顶</span>
             <h4>
               <router-link :to="`/blog/${item.user_id}/detail/${item.id}`" :class="item.is_original === 1 ? 'original' : 'reprint'">
                 <span class="original" v-if="item.is_original === 1">原创</span>
@@ -160,7 +164,8 @@ export default {
       blogNew: [],
       search: '',
       blogNull: false,
-      timer: null
+      timer: null,
+      checkOriginal: false
     }
   },
   watch: {
@@ -183,11 +188,19 @@ export default {
   },
   methods: {
     getGetBlogList () {
-      apiGetBlogList({
+      const data = {
         limit: 10,
         offset: (this.currentPage - 1) * 10,
-        title: this.search
-      }).then(res => {
+        title: this.search,
+        is_original: this.checkOriginal ? 1 : undefined,
+        order: JSON.stringify([
+          ['is_top', 'DESC'],
+          ['updated_time', 'ASC'],
+          ['view', 'ASC'],
+          ['comment', 'ASC']
+        ])
+      }
+      apiGetBlogList(data).then(res => {
         this.blogTotal = res.count
         this.blogData = res.rows
         this.blogNull = this.blogData.length === 0
@@ -221,8 +234,10 @@ export default {
       })
     },
     changePage (page) {
-      this.$router.push({ query: { page } })
-      this.currentPage = page
+      if (page !== this.currentPage) {
+        this.$router.push({ query: { page } })
+        this.currentPage = page
+      }
       this.getGetBlogList()
     }
   },
@@ -423,9 +438,28 @@ export default {
         margin-left: 15px;
         background: white;
         .blog-list{
+          .filter-box{
+            padding: 0 24px;
+            height: 42px;
+            line-height: 42px;
+            background: #fff;
+            border-bottom: 1px solid #f0f2f5;
+          }
           .blog-item-box{
             padding: 16px 24px 12px 24px;
             border-bottom: 1px solid #f0f2f5;
+            position: relative;
+            overflow: hidden;
+            .settop{
+              position: absolute;
+              right: 0;
+              top:0;
+              background: #7DC66D;
+              font-size: .6rem;
+              color: #fff;
+              transform: rotateZ(45deg) translateY(-55px);
+              padding: 50px 25px 3px;
+            }
             &:hover{
               background: #f9fafc;
               h4{
